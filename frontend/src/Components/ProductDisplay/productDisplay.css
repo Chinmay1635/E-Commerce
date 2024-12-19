@@ -1,0 +1,11 @@
+.img-list img{
+    height: 5vmax;
+}
+
+.size-item{
+    margin: 0 0.5vmax;
+    padding: 0.5vmax;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
