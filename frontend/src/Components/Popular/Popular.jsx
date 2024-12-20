@@ -13,7 +13,7 @@ const Popular = () => {
         
         <div className="popular-items-container items-center flex gap-8 justify-center mt-4 flex-col lg:flex-row">
             {item_data.map((item, index) => {
-                return <Item key={index} img={item.image} name={item.name} new_price={item.new_price} old_price={item.old_price} />
+                return <Item key={index} category={item.category} img={item.image} name={item.name} new_price={item.new_price} old_price={item.old_price} id={item.id} />
             })} 
         </div>
 

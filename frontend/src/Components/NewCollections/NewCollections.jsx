@@ -10,7 +10,7 @@ const NewCollections = () => {
         <div className="collection flex w-full gap-5 justify-center flex-wrap">
         {newCollections.map((item, index)=>{ 
             return(
-                <Item key={index} img={item.image} name={item.name} new_price={item.new_price} old_price={item.old_price} />    
+                <Item key={index} img={item.image} name={item.name} new_price={item.new_price} old_price={item.old_price} id={item.id}/>    
             )
         })}
         </div>
