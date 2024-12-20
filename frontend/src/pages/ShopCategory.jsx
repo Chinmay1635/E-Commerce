@@ -12,7 +12,7 @@ export const ShopCategory = (props) => {
           {all_product.map((item, index)=>{
             if(item.category === props.category){
               return (
-                <Item key={index} img={item.image} name={item.name} new_price={item.new_price} old_price={item.old_price}/>
+                <Item key={index} id={item.id} img={item.image} name={item.name} new_price={item.new_price} old_price={item.old_price}/>
               )
             }
           })}
