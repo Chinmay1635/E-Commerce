@@ -30,7 +30,17 @@ const ShopContextProvider = (props) => {
        
         const addToCart = (productId) => {
             setCartItems((prev) => ({  ...prev, [productId]: prev[productId] + 1 }));
-            
+            fetch("http://localhost:3000/api/cart/add", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ productId }),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
         }
 
         const removeFromCart = (productId) => {
@@ -41,6 +51,17 @@ const ShopContextProvider = (props) => {
                 }
                 return cart;
             });
+            fetch("http://localhost:3000/api/cart/remove", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ productId }),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
         }
 
         const getTotalCartAmount = () => {
