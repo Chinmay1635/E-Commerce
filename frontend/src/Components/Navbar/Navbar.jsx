@@ -1,13 +1,25 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './navbar.css'
 import Logo from '../Assets/Frontend_Assets/logo.png'
 import Cart from '../Assets/Frontend_Assets/cart_icon.png'
 import { Link } from 'react-router-dom'
 import 'remixicon/fonts/remixicon.css'
 import { ShopContext } from '../../Context/ShopContext'
+import Cookies from 'js-cookie'
 function Navbar() {
   const [menu, setMenu] = useState("shop")
   const {getTotalCartItems} = useContext(ShopContext);
+
+
+  const [isAuthenticated, setIsAuthenticated] = useState(!!Cookies.get('token'));
+    const handleLogout = () => {
+        Cookies.remove('token');
+        setIsAuthenticated(false);
+    };
+
+    useEffect(() => {
+      setIsAuthenticated(!!Cookies.get('token'));
+    }, []);
   return (
     <nav className="navbar w-screen flex py-2 px-6 justify-between">
       <div className="nav-left flex items-center">
@@ -23,7 +35,11 @@ function Navbar() {
         </ul>
       </div>
       <div className="nav-right flex items-center gap-5">
-        <button className='border-zinc-400 text-xs border-2 px-2 py-1 lg:px-4 lg:py-2  rounded-full active:bg-zinc-300'><Link to='/login'>Login</Link></button>
+        <button className='border-zinc-400 text-xs border-2 px-2 py-1 lg:px-4 lg:py-2  rounded-full active:bg-zinc-300'>{isAuthenticated ? (
+          <span onClick={handleLogout}>Logout</span>
+        ) : (
+          <Link to='/login'>Login</Link>
+        )}</button>
         <Link to='/cart'><img className='h-5 lg:h-7 cursor-pointer' src={Cart} alt="" /></Link>
         <div className="nav-cart-count ml-[-30px] mt-[-20px] text-white w-4 h-4 lg:w-6 lg:h-6 text-[8px] lg:text-xs bg-red-700 rounded-full flex justify-center items-center">{getTotalCartItems()}</div>
         <div className="hamburger block lg:hidden"><i className="ri-menu-3-line"></i></div>
