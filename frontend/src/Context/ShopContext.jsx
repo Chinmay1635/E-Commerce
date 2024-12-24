@@ -1,19 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 import Cookie from "js-cookie";
-import Error from "../Components/Alert/Error";
+
 
 
 export const ShopContext = createContext(null);
-
-const getDefaultCart = () => {
-    let cart = {};
-    for(let i = 0; i<300+1; i++){
-        cart[i] = 0;
-    }
-    return cart;
-}
-
-
 
 const ShopContextProvider = (props) => {
 
@@ -26,10 +16,36 @@ const ShopContextProvider = (props) => {
             .catch(error => console.error('Error fetching products:', error));
     }, []);
 
-        const [cartItems, setCartItems] = useState(getDefaultCart());
+        const [cartItems, setCartItems] = useState([]);
+        const [loading, setLoading] = useState(true);
+        const getCartItems = async () => {
+            try {
+              
+                if(!!Cookie.get('token')){
+                    const response = await fetch('http://localhost:3000/api/cart/get', {
+                        method: 'GET',
+                        credentials: 'include'
+                    });
+                    const data = await response.json();
+                    setCartItems(data.cart);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error('Error fetching cart items:', error);
+            } finally {
+                
+            }
+        };
+
+          useEffect(() => {
+        getCartItems();
+    }, []);
        
         const addToCart = (productId) => {
-            setCartItems((prev) => ({  ...prev, [productId]: prev[productId] + 1 }));
+            const updatedCartItems = cartItems.map(item => 
+                item.id === productId ? { ...item, value: item.value+1 } : item
+            );
+            setCartItems(updatedCartItems);
             fetch("http://localhost:3000/api/cart/add", {
                 method: "PUT",
                 headers: {
@@ -44,13 +60,10 @@ const ShopContextProvider = (props) => {
         }
 
         const removeFromCart = (productId) => {
-            setCartItems((prev) => {
-                const cart = { ...prev };
-                if (cart[productId] > 0) {
-                    cart[productId] = cart[productId] - 1;
-                }
-                return cart;
-            });
+            const updatedCartItems = cartItems.map(item => 
+                item.id === productId ? { ...item, value: item.value-1 } : item
+            );
+            setCartItems(updatedCartItems);
             fetch("http://localhost:3000/api/cart/remove", {
                 method: "PUT",
                 headers: {
@@ -67,9 +80,9 @@ const ShopContextProvider = (props) => {
         const getTotalCartAmount = () => {
             let totalAmount = 0;
             for(const item in cartItems){
-                if(cartItems[item]>0){
+                if(cartItems[item].value>0){
                     let itemInfo = all_product.find((product)=>product.id === Number(item));
-                    totalAmount += itemInfo.new_price*cartItems[item];
+                    totalAmount += itemInfo.new_price*cartItems[item].value;
                 }
             }
 
@@ -79,14 +92,14 @@ const ShopContextProvider = (props) => {
         const getTotalCartItems = () => {
             let total = 0;
             for(const item in cartItems){
-                if(cartItems[item]>0){
-                    total += cartItems[item]
+                if(cartItems[item].value>0){
+                    total += cartItems[item].value;
                 }
             }
             return total;
         }
 
-        const contextValue = { all_product, cartItems, addToCart, removeFromCart, getTotalCartAmount, getTotalCartItems};
+        const contextValue = { all_product, cartItems, addToCart, removeFromCart, getTotalCartAmount, getTotalCartItems, loading};
 
 
         return (
