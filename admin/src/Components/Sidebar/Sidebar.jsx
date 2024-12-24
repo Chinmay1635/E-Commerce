@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import addProduct from '../../assets/Product_cart.svg'
+import addProduct from '../../assets/Product_Cart.svg'
 import listProduct from '../../assets/Product_list_icon.svg'
 
 const Sidebar = () => {
