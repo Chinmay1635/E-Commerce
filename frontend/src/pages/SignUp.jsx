@@ -20,7 +20,7 @@ export const SignUp = () => {
       };
     
     const signUpForm =  () => {
-        fetch('http://localhost:3000/api/users/signup', {
+        fetch('https://e-commerce-csrj.onrender.com/api/users/signup', {
             body: JSON.stringify(formData),
             method: 'POST',
             headers: {

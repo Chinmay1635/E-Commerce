@@ -46,7 +46,7 @@ const AddProduct = () => {
         let formData = new FormData();
         formData.append('product', image);
 
-        await fetch('http://localhost:3000/api/product/addImage' , {
+        await fetch('https://e-commerce-csrj.onrender.com/api/product/addImage' , {
             method: 'POST',
             headers:{
                 Accept: 'application/json'
@@ -57,7 +57,7 @@ const AddProduct = () => {
 
         if(responseData.success){
             product.image = responseData.image_url;
-            await fetch('http://localhost:3000/api/product/addProduct' , {
+            await fetch('https://e-commerce-csrj.onrender.com/api/product/addProduct' , {
                 method: 'POST',
                 headers:{
                     'Content-Type': 'application/json'

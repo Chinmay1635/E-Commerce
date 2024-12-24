@@ -5,7 +5,7 @@ const ListProduct = () => {
   const [all_product, setAllProduct] = useState([]);
   let responseData;
   const fetchProducts = async () => {
-    await fetch('http://localhost:3000/api/product/all')
+    await fetch('https://e-commerce-csrj.onrender.com/api/product/all')
     .then((response) => response.json())
     .then((data) => responseData = data);
     setAllProduct(responseData.products);
@@ -16,7 +16,7 @@ const ListProduct = () => {
   }, [])
 
   const removeProduct = async (id) => {
-    await fetch('http://localhost:3000/api/product/removeProduct', {
+    await fetch('https://e-commerce-csrj.onrender.com/api/product/removeProduct', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ const ShopContextProvider = (props) => {
     const [all_product, setAllProduct] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/product/all")
+        fetch("https://e-commerce-csrj.onrender.com/api/product/all")
             .then(response => response.json())
             .then(data => setAllProduct(data.products))
             .catch(error => console.error('Error fetching products:', error));
@@ -22,7 +22,7 @@ const ShopContextProvider = (props) => {
             try {
               
                 if(!!Cookie.get('token')){
-                    const response = await fetch('http://localhost:3000/api/cart/get', {
+                    const response = await fetch('https://e-commerce-csrj.onrender.com/api/cart/get', {
                         method: 'GET',
                         credentials: 'include'
                     });
@@ -46,7 +46,7 @@ const ShopContextProvider = (props) => {
                 item.id === productId ? { ...item, value: item.value+1 } : item
             );
             setCartItems(updatedCartItems);
-            fetch("http://localhost:3000/api/cart/add", {
+            fetch("https://e-commerce-csrj.onrender.com/api/cart/add", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const ShopContextProvider = (props) => {
                 item.id === productId ? { ...item, value: item.value-1 } : item
             );
             setCartItems(updatedCartItems);
-            fetch("http://localhost:3000/api/cart/remove", {
+            fetch("https://e-commerce-csrj.onrender.com/api/cart/remove", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

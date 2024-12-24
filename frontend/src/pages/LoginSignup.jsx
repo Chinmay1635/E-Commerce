@@ -16,7 +16,7 @@ export const LoginSignup = () => {
         };
       
       const loginForm =  () => {
-          fetch('http://localhost:3000/api/users/login', {
+          fetch('https://e-commerce-csrj.onrender.com/api/users/login', {
               body: JSON.stringify(formData),
               method: 'POST',
               headers: {

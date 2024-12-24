@@ -15,7 +15,7 @@ const upload = multer({storage: storage});
 module.exports.upload = upload.single('product');
 
 module.exports.addProductImage = (req, res) => {
-    res.json({ success: true,message: 'Product added successfully', image_url: `http://localhost:${process.env.PORT}/images/${req.file.filename}` });
+    res.json({ success: true,message: 'Product added successfully', image_url: `https://e-commerce-csrj.onrender.com/images/${req.file.filename}` });
 };
 
 module.exports.addProduct = async (req, res) => {
