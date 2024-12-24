@@ -41,5 +41,12 @@ const userSchema = new mongoose.Schema({
 
 });
 
+userSchema.pre('save', function(next) {
+    if (this.isNew) {
+        this.cart = Array.from({ length: 300 }, (_, i) => ({ id: i, value: 0 }));
+    }
+    next();
+});
+
 const userModel = mongoose.model('User', userSchema);
 module.exports = userModel;
