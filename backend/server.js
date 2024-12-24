@@ -15,7 +15,7 @@ app.use(cookieParser());
 const productRouter = require('./routes/productRoutes');
 
 const corsOptions = {
-    origin: 'https://e-commerce-nu-ecru.vercel.app/', 
+    origin: 'https://e-commerce-nu-ecru.vercel.app', 
     credentials: true, 
 };
 
