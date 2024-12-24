@@ -14,10 +14,23 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 const productRouter = require('./routes/productRoutes');
 
+const allowedOrigins = [
+    'https://e-commerce-nu-ecru.vercel.app',
+    'https://e-commerce-user-two.vercel.app'
+];
+
 const corsOptions = {
-    origin: 'https://e-commerce-nu-ecru.vercel.app', 
-    credentials: true, 
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
 };
+
+app.use(cors(corsOptions));
 
 app.use(cors(corsOptions));
 
