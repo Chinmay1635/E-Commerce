@@ -1,11 +1,12 @@
 const multer = require('multer');
 const mongoose = require('mongoose');
 const Product = require('../models/product');
+const path = require('path');
 
 const storage = multer.diskStorage({
     destination: './uploads/images',
     filename: function(req, file, cb){
-       return cb(null, file.fieldname + '-' + Date.now() + file.originalname);
+       return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
     }   
 });
 
@@ -14,7 +15,7 @@ const upload = multer({storage: storage});
 module.exports.upload = upload.single('product');
 
 module.exports.addProductImage = (req, res) => {
-    res.json({ success: true,message: 'Product added successfully', url: req.file.path });
+    res.json({ success: true,message: 'Product added successfully', image_url: `http://localhost:${process.env.PORT}/images/${req.file.filename}` });
 };
 
 module.exports.addProduct = async (req, res) => {
