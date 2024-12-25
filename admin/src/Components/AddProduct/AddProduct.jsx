@@ -50,7 +50,7 @@ const AddProduct = () => {
             method: 'POST',
             headers:{
                 Accept: 'application/json',
-                'Content-Type': 'multipart/form-data'
+                // 'Content-Type': 'multipart/form-data'
             },
             body: formData,
         }).then((response) => response.json())
@@ -102,7 +102,7 @@ theme="light"
                 <label htmlFor="image" className='cursor-pointer'>
                     <img className='w-24' src={image ? URL.createObjectURL(image) : upload_icon } alt="" />
                 </label>
-                <input  hidden onChange={imageHandler} className='border-2 border-gray-200 rounded-lg p-2' type="file" name='image' id='image' />
+                <input enctype="multipart/form-data" hidden onChange={imageHandler} className='border-2 border-gray-200 rounded-lg p-2' type="file" name='image' id='image' />
 
             </form>
                 <button onClick={()=> Add_Product()} className='bg-blue-400 mt-4 text-white rounded-lg p-2'>Add Product</button>
