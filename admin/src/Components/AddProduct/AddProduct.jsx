@@ -49,7 +49,8 @@ const AddProduct = () => {
         await fetch('https://e-commerce-csrj.onrender.com/api/product/addImage' , {
             method: 'POST',
             headers:{
-                Accept: 'application/json'
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data'
             },
             body: formData,
         }).then((response) => response.json())
