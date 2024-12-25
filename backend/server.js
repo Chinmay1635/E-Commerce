@@ -16,7 +16,8 @@ const productRouter = require('./routes/productRoutes');
 
 const allowedOrigins = [
     'https://e-commerce-nu-ecru.vercel.app',
-    'https://e-commerce-user-two.vercel.app'
+    'https://e-commerce-user-two.vercel.app',
+    'http://localhost:5173'
 ];
 
 const corsOptions = {
