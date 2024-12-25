@@ -27,7 +27,7 @@ const ShopContextProvider = (props) => {
                         credentials: 'include'
                     });
                     const data = await response.json();
-                    setCartItems(data.cart);
+                    setCartItems(data.cart || []);
                     setLoading(false);
                 }
             } catch (error) {
@@ -42,8 +42,13 @@ const ShopContextProvider = (props) => {
     }, []);
        
         const addToCart = (productId) => {
-            const updatedCartItems = cartItems.map(item => 
-                item.id === productId ? { ...item, value: item.value+1 } : item
+            if (!Array.isArray(cartItems)) {
+                console.error('cartItems is not an array');
+                return;
+            }
+    
+            const updatedCartItems = cartItems.map(item =>
+                item.id === productId ? { ...item, value: item.value + 1 } : item
             );
             setCartItems(updatedCartItems);
             fetch("https://e-commerce-csrj.onrender.com/api/cart/add", {
@@ -60,8 +65,13 @@ const ShopContextProvider = (props) => {
         }
 
         const removeFromCart = (productId) => {
-            const updatedCartItems = cartItems.map(item => 
-                item.id === productId ? { ...item, value: item.value-1 } : item
+            if (!Array.isArray(cartItems)) {
+                console.error('cartItems is not an array');
+                return;
+            }
+    
+            const updatedCartItems = cartItems.map(item =>
+                item.id === productId ? { ...item, value: item.value - 1 } : item
             );
             setCartItems(updatedCartItems);
             fetch("https://e-commerce-csrj.onrender.com/api/cart/remove", {
