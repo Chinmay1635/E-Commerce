@@ -15,7 +15,7 @@ module.exports.isLoggedIn = (req, res, next) => {
     } catch (error) {
         return res.status(401).json({
             status: 'fail',
-            message: 'You are not logged in'
+            message: 'Failed to login try again'
         });
     }
 }
